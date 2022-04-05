@@ -19,7 +19,6 @@ module.exports = {
        async register(parent,args,context,info){
             const {registerInput}=args;
             const { username, email, password:oldPassword, confirmPassword } =registerInput;
-            console.log(registerInput,'=========')
             //判断用户是否已经存在
             //
             password = await bcrypt.hash(oldPassword, 12);

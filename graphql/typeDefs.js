@@ -22,15 +22,15 @@ const {gql} =require('apollo-server')
   }
 
   input RegisterInput {
-    username: String
-    email: String
-    password: String
-    confirmPassword: String
+    username: String!
+    email: String!
+    password: String!
+    confirmPassword: String!
   }
 
   type Mutation {
-    register(registerInput: RegisterInput): User
-    # User代表返回的类型
+    register(registerInput: RegisterInput): User!
+    # User是返回的类型
   }
 `;
 

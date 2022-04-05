@@ -21,5 +21,6 @@ mutation {
     id
     email
     username
+    token
   }
 }
