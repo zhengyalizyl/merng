@@ -10,7 +10,8 @@ const {gql} =require('apollo-server')
   }
 
   type Query {
-    getPosts: [Post]
+    getPosts: [Post],
+    getPost:Post
   }
 
   type User {
@@ -28,9 +29,17 @@ const {gql} =require('apollo-server')
     confirmPassword: String!
   }
 
+  input LoginInput{
+      username:String!
+      password:String!
+  }
+
   type Mutation {
     register(registerInput: RegisterInput): User!
     # User是返回的类型
+    login(loginInput:LoginInput):User!
+    createPost(body:String!):Post!
+    deletePost(postId:ID!):String!
   }
 `;
 

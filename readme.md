@@ -24,3 +24,15 @@ mutation {
     token
   }
 }
+
+3.mutation {
+   login(loginInput:{
+    username:"yw",
+    password:"123",
+  }){
+    email
+    username
+    token
+    id
+  }
+}
