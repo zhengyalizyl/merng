@@ -36,7 +36,7 @@ module.exports = {
                 const post=await Post.findById(postId);
                 if(post){
                     const commentIndex=post.comments.findIndex(c=>c.id===commentId);
-                    if(post.comments[commentIndex]===user.username){
+                    if(post.comments[commentIndex].username===user.username){
                         post.comments.splice(commentIndex,1)
                         await post.save();
                         return post
