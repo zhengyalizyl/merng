@@ -1,6 +1,6 @@
 const { AuthenticationError } = require('apollo-server');
 const Post = require('../../model/Post');
-const {checkAuth}=require('../../utils/check-auth')
+const { checkAuth } = require('../../utils/check-auth')
 
 module.exports = {
     Query: {
@@ -29,28 +29,49 @@ module.exports = {
         async createPost(parent, args, context) {
             const { body } = args;
             // console.log(req, req.headers, "=====")
-            const user=checkAuth(context);
-            const newPost=new Post({
+            const user = checkAuth(context);
+            const newPost = new Post({
                 body,
-                username:user.username,
-                createdAt:new Date().toISOString(),
-                user:user.id
+                username: user.username,
+                createdAt: new Date().toISOString(),
+                user: user.id
             })
-            const post=await newPost.save();
+            const post = await newPost.save();
             return post
         },
-        async deletePost(parent,args,context){
+        async deletePost(parent, args, context) {
             const { postId } = args;
-            const user=checkAuth(context);
+            const user = checkAuth(context);
             try {
-                const post=await Post.findById(postId);
-                if(user.username===post.username){
+                const post = await Post.findById(postId);
+                if (user.username === post.username) {
                     await post.delete();
                     return "Post delete suceessfully"
                 }
-               throw new AuthenticationError('操作不被允许')
+                throw new AuthenticationError('操作不被允许')
             } catch (error) {
                 throw new Error(err)
+            }
+        },
+        async likePost(parent, args, context) {
+            const { username } = checkAuth(context);
+            const { postId } = args
+            const post = await Post.findById(postId);
+
+            if (post) {
+                if (post.likes.find(like => like.username === username)) {
+                    post.likes = post.likes.filter(like => like.username !== username);
+                } else {
+                    post.likes.push({
+                        username,
+                        createdAt: new Date().toISOString()
+                    });
+                }
+
+                await post.save();
+                return post;
+            } else {
+                throw new UserInputError("Post not found");
             }
         }
     }
