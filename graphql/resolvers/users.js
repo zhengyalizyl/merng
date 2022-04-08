@@ -4,6 +4,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { UserInputError } = require("apollo-server");
 const { validateRegisterInput, validateLoginInput } = require('../../utils/validators');
+const checkAuth = require('../../utils/check-auth');
 
 module.exports = {
     Query: {
@@ -19,6 +20,7 @@ module.exports = {
     Mutation: {
         async register(parent, args, context, info) {
             const { registerInput } = args;
+            console.log(checkAuth(context),'=======');
             const { username, email, password: oldPassword, confirmPassword } = registerInput;
             const { errors, valid } = validateRegisterInput(username, email, oldPassword, confirmPassword)
             console.log(errors)

@@ -2,6 +2,9 @@ server document:https://www.apollographql.com/docs/apollo-server/getting-started
 
 client document:https://www.apollographql.com/docs/react/data/queries
 
+https://react.semantic-ui.com/usage/
+
+semantic-ui-css的webpack问题：https://github.com/Semantic-Org/Semantic-UI-CSS/issues/81
 
 1.
  query getpost{

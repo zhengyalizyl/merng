@@ -21,6 +21,8 @@ const {gql} =require('apollo-server')
     username: String!
     comments:[Comment]!
     likes:[Likes]
+    commentCount:Int!
+    likeCount:Int!
   }
 
   type Query {
