@@ -18,7 +18,6 @@ export default function Login() {
 
   const [loginMutation,{loading}]=useMutation(LOGIN,{
     update(_,res){
-      console.log(res)
       context.login(res.data.login);
       console.log(res);
       navigate("/");
