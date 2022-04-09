@@ -1,4 +1,4 @@
-const { AuthenticationError,UserInputError } = require('apollo-server');
+const { AuthenticationError, UserInputError } = require('apollo-server');
 const Post = require('../../model/Post');
 const checkAuth = require('../../utils/check-auth');
 
@@ -6,9 +6,7 @@ module.exports = {
     Query: {
         async getPosts() {
             try {
-                const posts = await Post.find();
-                console.log(posts)
-                // const posts = await Post.find().createdAt(-1);
+                const posts = await Post.find().sort({createdAt:-1});
                 return posts;
             } catch (err) {
                 throw new Error(err);
@@ -31,7 +29,9 @@ module.exports = {
         async createPost(parent, args, context) {
             const { body } = args;
             const user = checkAuth(context);
-
+            if (body.trim() === "") {
+                throw new Error('post的body不能为空')
+            }
             const newPost = new Post({
                 body,
                 username: user.username,
