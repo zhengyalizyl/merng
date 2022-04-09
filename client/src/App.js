@@ -6,9 +6,11 @@ import Register from './pages/Register';
 import MenuBar from "./components/MenuBar";
 import { Container } from "semantic-ui-react";
 import 'semantic-ui-css/semantic.min.css'
+import { AuthProvider } from "./context/auth";
 
 function App() {
   return (
+    <AuthProvider>
     <BrowserRouter>
     <Container>
     <MenuBar/>
@@ -19,6 +21,7 @@ function App() {
     </Routes>
     </Container>
     </BrowserRouter>
+    </AuthProvider>
   );
 }
 

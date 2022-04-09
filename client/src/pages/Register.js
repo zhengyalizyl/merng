@@ -1,11 +1,12 @@
-import React,{useState} from 'react'
+import React,{useContext, useState} from 'react'
 import { Form,Button } from "semantic-ui-react";
 import { REGISTER } from '../query';
 import { useMutation } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "../utils/hook";
-
+import { AuthContext } from "../context/auth";
 export default function Register() {
+  const context=useContext(AuthContext)
   const navigate =useNavigate();
   const  [errors,setError]=useState({});
 
@@ -19,6 +20,7 @@ export default function Register() {
   const [registerMutation,{loading}]=useMutation(REGISTER,{
     update(_,res){
       console.log(res);
+      context.login(res.data.register)
       navigate("/");
     },
     onError(err){

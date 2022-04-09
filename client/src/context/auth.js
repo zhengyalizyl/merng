@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext,useReducer } from "react";
 
 const AuthContext = createContext({
     user: null,
@@ -28,7 +28,7 @@ function authReducer(state, action) {
 
 
 function AuthProvider(props) {
-    const [state, dispatch] = useRedcuer(authReducer, { user: null });
+    const [state, dispatch] = useReducer(authReducer, { user: null });
 
     function login(userData) {
         dispatch({
