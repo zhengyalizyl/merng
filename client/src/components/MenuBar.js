@@ -1,10 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Menu } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
 function MenuBar() {
   const pathname = window.location.pathname;
-  const path = pathname === "/" ? "home" : pathname.substr(1);
+  let  path = pathname === "/" ? "home" : pathname.substr(1);
+  useEffect((
+  )=>{
+    console.log(pathname,'=========')
+    path = pathname === "/" ? "home" : pathname.substr(1);
+    setActiveItem(path)
+  },[pathname])
   const [activeItem, setActiveItem] = useState(path);
 
   const handleItemClick = (e, { name }) => setActiveItem(name);

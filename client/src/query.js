@@ -1,6 +1,5 @@
 import { gql } from "@apollo/client";
 
-
 export const GET_POSTS_QUERY=gql`
      query getPostsQuery {
         getPosts{
@@ -21,6 +20,14 @@ export const GET_POSTS_QUERY=gql`
                  }
               }
       }
+`;
 
+export const REGISTER=gql`
+      mutation register($registerInput: RegisterInput){
+        register(registerInput:$registerInput){
+              token
+              
+        }
+      }
 
 `
