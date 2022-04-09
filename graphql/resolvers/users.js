@@ -95,6 +95,7 @@ module.exports = {
                 SECRET_KEY,
                 { expiresIn: "1h" }
             );
+            console.log(user,'zhdoadoa ')
 
             return {
                 ...user._doc,

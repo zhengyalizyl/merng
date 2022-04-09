@@ -3,20 +3,18 @@ import { Form,Button } from "semantic-ui-react";
 import { REGISTER } from '../query';
 import { useMutation } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "../utils/hook";
 
 export default function Register() {
   const navigate =useNavigate();
   const  [errors,setError]=useState({});
-  const [values, setValues] = useState({
+
+   const {onChange,onSubmit,values}=useForm(registerUser,{
     username: "",
     email: "",
     password: "",
     confirmPassword: ""
-  });
-
-  const onChange = event => {
-    setValues({ ...values, [event.target.name]: event.target.value });
-  };
+   })
 
   const [registerMutation,{loading}]=useMutation(REGISTER,{
     update(_,res){
@@ -25,16 +23,13 @@ export default function Register() {
     },
     onError(err){
       setError(err.graphQLErrors[0].extensions.errors)//error handling:https://www.apollographql.com/docs/react/data/error-handling/
+    },
+    variables:{
+      registerInput:values
     }
   })
-  const onSubmit=(e)=>{
-    e.preventDefault();
-    registerMutation({
-      variables:{
-        registerInput:values
-      }
-    })
-
+ function registerUser(){
+    registerMutation()
   }
   return (
     <div className="form-container">

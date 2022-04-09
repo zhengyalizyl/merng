@@ -8,7 +8,7 @@ export default function Home() {
 
   const {data,loading,error}=useQuery(GET_POSTS_QUERY);
     
-
+    
 
   return (
     <Grid columns={3}>
