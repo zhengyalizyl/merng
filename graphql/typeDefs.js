@@ -25,10 +25,7 @@ const {gql} =require('apollo-server')
     likeCount:Int!
   }
 
-  type Query {
-    getPosts: [Post],
-    getPost:Post
-  }
+
 
   type User {
     id: ID!
@@ -48,6 +45,12 @@ const {gql} =require('apollo-server')
   input LoginInput{
       username:String!
       password:String!
+  }
+
+  type Query {
+    getPosts: [Post],
+    getPost(postId:ID!):Post,
+    getUsers:User,
   }
 
   type Mutation {

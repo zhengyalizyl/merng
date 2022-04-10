@@ -8,6 +8,7 @@ import { Container } from "semantic-ui-react";
 import 'semantic-ui-css/semantic.min.css'
 import { AuthProvider } from "./context/auth";
 import AuthRoute from "./utils/AuthRoute";
+import SinglePost from './components/SinglePost';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
     <MenuBar/>
     <Routes>
       <Route path='/' element={<Home/>}></Route>
+      <Route path="/posts/:postId" element={<SinglePost/>}/>
       <Route  path="/login" element={
         <AuthRoute>
           <Login/>

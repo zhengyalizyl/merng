@@ -93,3 +93,26 @@ export const LIKE_POST_MUTATION=gql`
   }
 
 `
+
+
+export const GET_POST_QUERY=gql`
+  query getPost($postId:ID!){
+    getPost(postId:$postId){
+      id
+      body
+      createdAt
+      username
+      comments{
+        id
+        username
+        createdAt
+        body
+      }
+      likes{
+        username
+      }
+      commentCount
+      likeCount
+    }
+  }
+`
