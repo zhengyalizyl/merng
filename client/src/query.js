@@ -32,30 +32,34 @@ export const GET_POSTS_QUERY = gql`
       ${POST_FRAGEMENT}
 `;
 
-export const REGISTER = gql`
-      mutation register($registerInput: RegisterInput){
-        register(registerInput:$registerInput){
-          id
+export const  USER_FRAGMENT=gql`
+   fragment userFragment on User{
+        id
          email
          username
          createdAt
          token
+   }
+
+`
+
+export const REGISTER = gql`
+      mutation register($registerInput: RegisterInput){
+        register(registerInput:$registerInput){
+           ...userFragment
         }
       }
-
+  ${USER_FRAGMENT}
 `
 
 
 export const LOGIN = gql`
     mutation login($loginInput:LoginInput){
     login(loginInput:$loginInput) {
-      id
-      email
-      username
-      createdAt
-      token
+      ...userFragment
     }
 }
+${USER_FRAGMENT}
 `
 
 
