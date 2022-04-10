@@ -6,10 +6,14 @@ import { Grid, Image, Card } from "semantic-ui-react";
 import LikeButton from "../components/LikeButton";
 import moment from "moment";
 import { AuthContext } from "../context/auth";
+import CommentButton from "./CommentButton";
+import DeleteButton from "./DeleteButton";
+import { useNavigate } from "react-router-dom";
 
 export default function SinglePost() {
     const  {postId}=useParams();
-    const user=useContext(AuthContext)
+    const   navigate=useNavigate() 
+    const {user}=useContext(AuthContext)
     const {data,loading,error} =useQuery(GET_POST_QUERY,{
         variables:{
             postId
@@ -20,7 +24,12 @@ export default function SinglePost() {
     }
     const { getPost } = data;
 
-    const { id, likes, likeCount, username, body, createdAt } = getPost; 
+    const { id, likes, likeCount, username, body, createdAt,commentCount } = getPost; 
+
+    const deletButtonCallback=()=>{
+         navigate('/')
+    }
+    console.log(user,username)
   return (
     <Grid>
     <Grid.Row>
@@ -41,6 +50,10 @@ export default function SinglePost() {
           <hr />
           <Card.Content extra>
             <LikeButton user={user} post={{ id, likes, likeCount }} />
+            <CommentButton post={{id,commentCount}}/>
+            {user && user.username === username && (
+          <DeleteButton postId={id} callback={()=>deletButtonCallback()}/>
+        )}
           </Card.Content>
         </Card>
       </Grid.Column>

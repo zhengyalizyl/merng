@@ -116,3 +116,10 @@ export const GET_POST_QUERY=gql`
     }
   }
 `
+
+export const DELETE_POST=gql`
+   mutation deletePost($postId:ID!){
+     deletePost(postId:$postId)
+   }
+
+`
