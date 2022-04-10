@@ -24,7 +24,7 @@ export default function SinglePost() {
     }
     const { getPost } = data;
 
-    const { id, likes, likeCount, username, body, createdAt,commentCount } = getPost; 
+    const { id, likes, likeCount, username, body, createdAt,commentCount,comments } = getPost; 
 
     const deletButtonCallback=()=>{
          navigate('/')
@@ -56,6 +56,17 @@ export default function SinglePost() {
         )}
           </Card.Content>
         </Card>
+        {
+            comments.map(comment=>(
+                <Card fluid key={comment.id}>
+                <Card.Content>
+                  <Card.Header>{comment.username}</Card.Header>
+                  <Card.Meta>{moment(comment.createdAt).fromNow()}</Card.Meta>
+                  <Card.Description>{comment.body}</Card.Description>
+                </Card.Content>
+              </Card>
+            ))
+        }
       </Grid.Column>
     </Grid.Row>
   </Grid>
