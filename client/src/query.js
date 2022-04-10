@@ -1,25 +1,35 @@
 import { gql } from "@apollo/client";
 
+
+
+export const POST_FRAGEMENT=gql`
+   fragment PostFragement on Post{
+    id
+      body
+      createdAt
+      username
+      comments{
+        id
+        username
+        createdAt
+        body
+      }
+      likes{
+        username
+      }
+      commentCount
+      likeCount
+   }
+
+ `
+
 export const GET_POSTS_QUERY = gql`
      query getPostsQuery {
         getPosts{
-                  id
-                  body
-                  createdAt
-                  username
-                  likeCount
-                  likes{
-                    username  
-                  }
-                  commentCount
-                 comments{
-                     id
-                     username
-                     createdAt
-                     body
-                 }
+                ...PostFragement
               }
       }
+      ${POST_FRAGEMENT}
 `;
 
 export const REGISTER = gql`
@@ -52,45 +62,19 @@ export const LOGIN = gql`
 export const CREATE_POST=gql`
   mutation createPost($body:String!){
     createPost(body:$body){
-      id
-      body
-      createdAt
-      username
-      comments{
-        id
-        username
-        createdAt
-        body
-      }
-      likes{
-        username
-      }
-      commentCount
-      likeCount
+       ...PostFragement
     }
   }
+  ${POST_FRAGEMENT}
 `
 
 export const LIKE_POST_MUTATION=gql`
   mutation likePost($postId:ID!){
     likePost(postId:$postId){
-      id
-      body
-      createdAt
-      username
-      comments{
-        id
-        username
-        createdAt
-        body
-      }
-      likes{
-        username
-      }
-      commentCount
-      likeCount
+        ...PostFragement
     }
   }
+  ${POST_FRAGEMENT}
 
 `
 
@@ -98,23 +82,10 @@ export const LIKE_POST_MUTATION=gql`
 export const GET_POST_QUERY=gql`
   query getPost($postId:ID!){
     getPost(postId:$postId){
-      id
-      body
-      createdAt
-      username
-      comments{
-        id
-        username
-        createdAt
-        body
-      }
-      likes{
-        username
-      }
-      commentCount
-      likeCount
+      ...PostFragement
     }
   }
+  ${POST_FRAGEMENT}
 `
 
 export const DELETE_POST=gql`
@@ -127,44 +98,21 @@ export const DELETE_POST=gql`
 export const DELETE_COMMENT=gql`
 mutation deleteComment($postId:ID!,$commentId:ID!){
   deleteComment(postId:$postId,commentId:$commentId){
-    id
-      body
-      createdAt
-      username
-      comments{
-        id
-        username
-        createdAt
-        body
-      }
-      likes{
-        username
-      }
-      commentCount
-      likeCount
+    PostFragement
   }
 }
+${POST_FRAGEMENT}
 `
+
+
+
 
 
 export const CREATE_COMMENT=gql`
     mutation createComment($postId:ID!,$body:String!){
       createComment(postId:$postId,body:$body){
-        id
-      body
-      createdAt
-      username
-      comments{
-        id
-        username
-        createdAt
-        body
-      }
-      likes{
-        username
-      }
-      commentCount
-      likeCount
+        ...PostFragement
       }
     }
+    ${POST_FRAGEMENT}
 `
