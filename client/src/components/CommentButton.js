@@ -1,9 +1,11 @@
 import React from "react";
-import { Button, Icon, Label } from "semantic-ui-react";
+import { Button, Icon, Label, Popup} from "semantic-ui-react";
 import { Link } from "react-router-dom";
+import MyPopup from "../utils/MyPopup";
 
 function CommentButton({ post: { id, commentCount } }) {
   return (
+    <MyPopup content="Comment on post">
     <Button labelPosition="right" as={Link} to={`/posts/${id}`}>
       <Button color="blue" basic>
         <Icon name="comment" />
@@ -12,6 +14,8 @@ function CommentButton({ post: { id, commentCount } }) {
         {commentCount}
       </Label>
     </Button>
+    </MyPopup>
+
   );
 }
 
