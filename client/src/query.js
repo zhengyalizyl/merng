@@ -123,3 +123,48 @@ export const DELETE_POST=gql`
    }
 
 `
+
+export const DELETE_COMMENT=gql`
+mutation deleteComment($postId:ID!,$commentId:ID!){
+  deleteComment(postId:$postId,commentId:$commentId){
+    id
+      body
+      createdAt
+      username
+      comments{
+        id
+        username
+        createdAt
+        body
+      }
+      likes{
+        username
+      }
+      commentCount
+      likeCount
+  }
+}
+`
+
+
+export const CREATE_COMMENT=gql`
+    mutation createComment($postId:ID!,$body:String!){
+      createComment(postId:$postId,body:$body){
+        id
+      body
+      createdAt
+      username
+      comments{
+        id
+        username
+        createdAt
+        body
+      }
+      likes{
+        username
+      }
+      commentCount
+      likeCount
+      }
+    }
+`

@@ -8,7 +8,7 @@ import { Container } from "semantic-ui-react";
 import 'semantic-ui-css/semantic.min.css'
 import { AuthProvider } from "./context/auth";
 import AuthRoute from "./utils/AuthRoute";
-import SinglePost from './components/SinglePost';
+import SinglePost from './pages/SinglePost';
 
 function App() {
   return (
